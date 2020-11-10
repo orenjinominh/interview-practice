@@ -1,33 +1,58 @@
-function reverseWords(message) {
-  message = message.join("").split(" ")  
-  let leftPointer = 0
-  let rightPointer = message.length - 1
-  // console.log(words)
-  // check the length of the words array
-  // rearrange the words based on the indexes 
+function reverseCharacters(message, leftPointer = 0, rightPointer = message.length - 1) {
+
   while (leftPointer < rightPointer) {
-    let temp = message[leftPointer]
-    // console.log(temp)
-    message[leftPointer] = message[rightPointer]
-    message[rightPointer] = temp
-    // console.log(words[leftPointer])
-    leftPointer++
-    rightPointer--
+    let temp = message[leftPointer];
+    message[leftPointer] = message[rightPointer];
+    message[rightPointer] = temp;
+    leftPointer++;
+    rightPointer--;
   }
-  // console.log('words', words)
-  console.log('message', message)
-  message.join(" ")
-  console.log('message after', message)
-  return message
-  // Decode the message by reversing the words
-  // console.log('beginning', message)
-  // let startSplice = 0
-  // let charCount = 5
-  // let insertChars = ["T", "E", "S", "T"]
-  // let removed = message.splice(startSplice, charCount, insertChars)
-  // console.log('end', message)
-  // startSplice++
 }
+
+function reverseWords(message) {  
+  // reverses the words to be in order (even if the characters are misordered)
+  reverseCharacters(message);
+
+  // loop through the misordered words and reorg the individual characters
+  let starterIndex = 0; 
+  
+  for (var i = 0; i <= message.length; i++) {
+    // console.log('message legnth', message.length)
+    if (i === message.length || message[i] === ' ') {
+      reverseCharacters(message, starterIndex, i - 1); 
+      starterIndex = i + 1; 
+    }
+  }
+  
+  // return the string with words ordered 
+  return message;
+  
+}
+
+
+// Pseudocode Brainstorm
+// reverse words to be in order
+
+// next, we need to find out where each word starts and ends
+// how do re-order individual characters that belong to a 'word'
+
+// go thru characters with loop?
+// find the space
+// using slice or splice ?
+// set lP at 0
+// set rP at index of the space character - 1? 
+// swap positions? 
+// how do we get to next word? 
+
+
+// keep track of starterIndex before the loop and update it 
+// use a for loop to go thru the message.length
+// check if i === message.length || message[i] === ' ' 
+// pass i - 1 into the reverseChars function to get the rP
+// then we run helper function to reverse the characters in the word
+  // helper function input: lP, rP, word
+// change the start index to i + 1 where i is the space
+
 
 // Tests
 // let desc = 'one word';
